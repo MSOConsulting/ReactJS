@@ -1,9 +1,0 @@
-{
-  "name": "ReactJs_Sandbox",
-  "version": "0.1.0",
-  "description": "Sandbox",
-  "main": "main.js",
-  "dependencies": {
-    "create-react-app": "^3.2.0"
-  }
-}
