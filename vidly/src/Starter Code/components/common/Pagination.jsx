@@ -1,24 +1,21 @@
 import React from "react";
+import _ from "lodash";
+import PropTypes from "prop-types";
 
-const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
-  const pageCount = Math.ceil(itemsCount / pageSize);
-
-  if (pageCount === 1) return null;
-
-  let pageArray = new Array(pageCount).fill(0).reduce((acc, _, idx) => {
-    acc.push(idx + 1);
-    return acc;
-  }, []);
+const Pagination = ({ itemCount, pageSize, currentPage, onPageChanged }) => {
+  let numberOfPage = Math.ceil(itemCount / pageSize);
+  let pages = _.range(1, numberOfPage + 1);
+  if (numberOfPage === 1 && currentPage === 1) return null;
 
   return (
-    <nav>
+    <nav aria-label="Page navigation example">
       <ul className="pagination">
-        {pageArray.map(page => (
+        {pages.map(page => (
           <li
             key={page}
             className={currentPage === page ? "page-item active" : "page-item"}
           >
-            <a onClick={() => onPageChange(page)} className="page-link">
+            <a className="page-link" onClick={() => onPageChanged(page)}>
               {page}
             </a>
           </li>
@@ -26,6 +23,13 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
       </ul>
     </nav>
   );
+};
+
+Pagination.propTypes = {
+  itemCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChanged: PropTypes.func.isRequired
 };
 
 export default Pagination;
