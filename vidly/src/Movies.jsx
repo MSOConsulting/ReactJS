@@ -35,6 +35,7 @@ class Movies extends Component {
 
   handleListChange = genreName => {
     this.setState({ currentGenre: genreName });
+    this.setState({ currentPage: 1 });
   };
 
   render() {
@@ -47,9 +48,14 @@ class Movies extends Component {
       currentGenre
     } = this.state;
 
-    let movies = Paginate(allMovies, currentPage, pageSize).filter(f =>
-      currentGenre === "All" ? f : f.genre.name === currentGenre
-    );
+    const filtered =
+      currentGenre || currentGenre._id
+        ? allMovies.filter(f =>
+            currentGenre === "All" ? f : f.genre.name === currentGenre
+          )
+        : allMovies;
+
+    let movies = Paginate(filtered, currentPage, pageSize);
 
     if (sizeListMovies === 0) {
       return <p>There are no movies in the database.</p>;
