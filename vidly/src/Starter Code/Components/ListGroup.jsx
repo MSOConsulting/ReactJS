@@ -1,32 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 
-const ListGroup = ({ genres, currentGenre, onListChange }) => {
+const ListGroup = ({
+  genres,
+  currentGenre,
+  textProperty,
+  valueProperty,
+  onListChange
+}) => {
   return (
     <ul className="list-group">
-      <li
-        key="All"
-        className={
-          currentGenre === "All" ? "list-group-item active" : "list-group-item"
-        }
-        onClick={() => onListChange("All")}
-      >
-        All Genres
-      </li>
       {genres.map(genre => (
         <li
-          key={genre._id}
+          key={genre[valueProperty]}
           className={
-            currentGenre === genre.name
+            currentGenre === genre[valueProperty]
               ? "list-group-item active"
               : "list-group-item"
           }
-          onClick={() => onListChange(genre.name)}
+          onClick={() => onListChange(genre[valueProperty])}
         >
-          {genre.name}
+          {genre[textProperty]}
         </li>
       ))}
     </ul>
   );
+};
+
+ListGroup.defaultProps = {
+  textProperty: "name",
+  valueProperty: "_id"
 };
 
 export default ListGroup;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ListGroup from "./Starter Code/Components/ListGroup";
+import ListGroup from "./Starter Code/components/ListGroup";
 import Movies from "./Movies";
 class App extends Component {
   state = {};
